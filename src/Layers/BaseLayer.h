@@ -9,7 +9,7 @@ class BaseLayer : public Layer
 public:
 	BaseLayer();
 
-	void OnAttach(std::shared_ptr<BatchLoader> &loader) override;
+	void OnAttach(Shared<BatchLoader> &loader) override;
 	void OnDetach() override;
 
 	void OnPreFrame() override;
@@ -33,9 +33,6 @@ protected:
 	Scene _scene;
 	Terminal _terminal;
 	DockSpace _dockSpace;
-
-	bool _viewSystem = true;
-	bool _viewDemo = true;
 
 private:
 	bool _wantResize = false;

@@ -8,12 +8,16 @@ BaseLayer::BaseLayer() :
 {
 }
 
-void BaseLayer::OnAttach(std::shared_ptr<BatchLoader>& loader)
+void BaseLayer::OnAttach(Shared<BatchLoader>& loader)
 {
 	_scene.ViewportPane().Resized += SE_EV_ACTION(BaseLayer::OnWantRenderTargetResize);
 	RenderTargetManager::Add(&_controllableRenderTexture);
 
-	RenderTargetResized += SE_EV_ACTION(BaseLayer::OnRenderTargetResize);
+	RenderTargetResized += [this](const sf::Vector2f& newSize)
+	{
+		OnRenderTargetResize(newSize);
+		return false;
+	};
 }
 
 void BaseLayer::OnDetach()
@@ -50,12 +54,10 @@ void BaseLayer::OnUpdate()
 
 void BaseLayer::OnGuiRender()
 {
-	if (_viewSystem)
-	{
-		_camera.OnGuiRender();
-		_terminal.OnGuiRender();
-		App::Instance().OnGuiRender();
-	}
+	Gui::Instance().OnGuiRender();
+	_camera.OnGuiRender();
+	_terminal.OnGuiRender();
+	App::Instance().OnGuiRender();
 	_scene.OnGuiRender();
 }
 

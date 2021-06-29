@@ -1,12 +1,26 @@
-﻿#include "Layers/ProjectLayer.h"
-
-#include <SFML/Graphics.hpp>
+﻿#include "ProjectLayer.h"
 
 namespace Se
 {
 void ProjectLayer::OnAttach(std::shared_ptr<BatchLoader>& loader)
 {
 	BaseLayer::OnAttach(loader);
+
+	loader->Submit([this]()
+	{
+		_texture = TextureStore::Get("Editor/Saffron.png");
+		_sprite = sf::Sprite(*_texture);
+		_sprite.setScale(0.4f, 0.4f);
+		_sprite.setPosition(-_sprite.getGlobalBounds().width / 2.0f, -_sprite.getGlobalBounds().height / 2.0f);
+	}, "Loading Assets");
+	loader->Submit([this]()
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(1400));
+	}, "Some more loading");
+	loader->Submit([this]()
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds(1400));
+	}, "A little bit more loading");
 }
 
 void ProjectLayer::OnDetach()
@@ -17,48 +31,17 @@ void ProjectLayer::OnDetach()
 void ProjectLayer::OnUpdate()
 {
 	BaseLayer::OnUpdate();
+	_scene.Submit(_sprite);
 }
 
 void ProjectLayer::OnGuiRender()
 {
 	BaseLayer::OnGuiRender();
 
-	if (ImGui::BeginMenuBar())
-	{
-		if (ImGui::BeginMenu("Gui"))
-		{
-			ImGui::MenuItem("View System", nullptr, &_viewSystem);
-			ImGui::MenuItem("View Demo", nullptr, &_viewDemo);
-			if (ImGui::BeginMenu("Theme"))
-			{
-				if (ImGui::MenuItem("Dark"))
-				{
-					Gui::SetStyle(GuiStyle::Dark);
-				}
-				if (ImGui::MenuItem("Light"))
-				{
-					Gui::SetStyle(GuiStyle::Light);
-				}
-				if (ImGui::MenuItem("Visual Studio"))
-				{
-					Gui::SetStyle(GuiStyle::VisualStudio);
-				}
-				ImGui::EndMenu();
-			}
-			ImGui::EndMenu();
-		}
-		ImGui::EndMenuBar();
-	}
-
 	if (ImGui::Begin("Project"))
 	{
 	}
 	ImGui::End();
-
-	if (_viewDemo)
-	{
-		ImGui::ShowDemoWindow();
-	}
 }
 
 void ProjectLayer::OnRenderTargetResize(const sf::Vector2f& newSize)

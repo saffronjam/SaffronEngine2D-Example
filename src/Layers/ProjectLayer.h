@@ -14,5 +14,10 @@ public:
 	void OnGuiRender() override;
 
 	void OnRenderTargetResize(const sf::Vector2f &newSize) override;
+
+private:
+	sf::Sprite _sprite;
+	Shared<sf::Texture> _texture;
+
 };
 }
