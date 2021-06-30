@@ -48,4 +48,9 @@ RelWithDebInfo
 /Saffron/bin/
 /bin/
 build/
+Build/
+Build/Assets/
 out/
+Out/
+Bin/
+Bin-Int/
