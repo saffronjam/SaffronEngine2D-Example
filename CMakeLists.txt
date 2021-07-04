@@ -55,28 +55,18 @@ endif ()
 ### BUILD TYPE SPECIFIC ###
 if (BuildType STREQUAL Debug)
     set(OutputDir ${BuildDir})
-    add_definitions(-DSE_IMGUI_INI_PATH="${PROJECT_SOURCE_DIR}/imgui.ini")
     add_definitions(
             -DSE_DEBUG
     )
 elseif (BuildType STREQUAL Release)
     set(OutputDir ${BuildDir})
-    add_definitions(-DSE_IMGUI_INI_PATH="${PROJECT_SOURCE_DIR}/imgui.ini")
     add_definitions(
             -DSE_RELEASE
     )
 elseif (BuildType STREQUAL Dist)
     set(OutputDir "${PROJECT_SOURCE_DIR}/example/${Platform}")
-
-    # Copy ini-file to dist output
-    set(IniPath "${PROJECT_SOURCE_DIR}/imgui.ini")
-    if(EXISTS ${IniPath})
-        file(COPY "${PROJECT_SOURCE_DIR}/imgui.ini" DESTINATION ${OutputDir})
-    endif()
-    add_definitions(-DSE_IMGUI_INI_PATH="${IniPath}")
-
     add_definitions(
-            -DSE_DIST
+        -DSE_DIST
     )
 endif ()
 
