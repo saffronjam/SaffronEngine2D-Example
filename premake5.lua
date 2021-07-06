@@ -46,7 +46,7 @@ workspace "Saffron"
 
 	startproject "Project"
 
-local SaffronEngine2D = require("deps.SaffronEngine2D.premake5")
+local SaffronEngine2D = require("ThirdParty.SaffronEngine2D.premake5")
 
 project (ProjectName)
     kind "ConsoleApp"
