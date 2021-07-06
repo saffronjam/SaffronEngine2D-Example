@@ -15,5 +15,5 @@
 	path = Deps/spdlog
 	url = https://github.com/saffronjam/spdlog.git
 [submodule "deps/SaffronEngine2D"]
-	path = deps/SaffronEngine2D
+	path = ThirdParty/SaffronEngine2D
 	url = https://github.com/saffronjam/SaffronEngine2D
