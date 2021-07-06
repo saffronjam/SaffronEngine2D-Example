@@ -27,7 +27,7 @@ jobs:
         
     - name: Update submodules
       run: |
-        git submodule update --remote --recursive
+        git submodule update --remote
     - name: Generate project
       run: |
         cd ${{github.workspace}}/Scripts
