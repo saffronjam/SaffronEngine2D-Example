@@ -1,6 +1,6 @@
 ---@diagnostic disable: undefined-global
 
-local ProjectName = "Project"
+local ProjectName = "ExampleProject"
 
 workspace "Saffron"
 	architecture "x64"
